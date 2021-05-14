@@ -1,4 +1,0 @@
-chrome
-Firefox
-opera
-Safari
