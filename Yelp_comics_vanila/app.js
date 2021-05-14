@@ -1,6 +1,6 @@
-const bodyParser = require("body-parser");
 const express = require("express");
 const app = express();
+const bodyParser = require("body-parser");
 
 app.set("view engine", "ejs");
 app.use(express.static("public"));
@@ -41,6 +41,7 @@ app.post("/comics", (req, res) => {
 app.get("/comics/new", (req, res) => {
 	res.render("comics_new");
 })
-app.listen(12345, () => {
-	console.log("yelp comic is running");
+let port = 1000
+app.listen(port, () => {
+	console.log("yelp comic is running on localhost:" + port);
 });
