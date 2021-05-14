@@ -12,6 +12,14 @@ app.get("/", (req, res) => {
 
 app.get("/movies", (req, res) => {
     res.render("movies")
+});
+
+app.get("/new_movies", (req, res) => {
+    res.render("new_movies")
+});
+
+app.get("*", (req, res) => {
+    res.render("error")
 })
 
 let port = 2000;
