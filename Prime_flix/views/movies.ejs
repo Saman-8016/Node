@@ -1,4 +1,21 @@
 <%- include("partials/header") %>
-    <h1>Movies goes here</h1>
-    <p>the idea is to have an icon-type list of movies that shows the rating and description of the movies</p>
+    <div id="container">
+        <div class="page-header">
+            <h1 class="page-title">Movies Page</h1>
+            <form action="/movies/new">
+                <button>Add new Movie</button>
+            </form>
+        </div>
+        <div id="film-container">
+            <% films.forEach((film) => { %>
+            <div id="film-card">
+                <img id="film-image" src="<%= film.artwork %>" alt="film's artwork is here" width="220px" height="275px" >
+                <h3 id="film-name"><%= film.name %></h3>
+                <h6 id="film-cast"><%= film.casts %></h6>
+                <p id="film-description"><%= film.description %></p>
+            </div>
+            <% }) %>
+            </div>
+        </div>
+    </div>
 <%- include("partials/footer") %>
