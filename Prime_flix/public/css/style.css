@@ -14,6 +14,34 @@ body {
     margin-left: 10%;
     color: red;
     font-size: 1.4rem;
-    
-    
+}
+
+.page-header {
+    border-bottom: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#film-card {
+    border: 1px solid blue;
+    border-radius: 10px;
+    width: 20%;
+    text-align: center;
+    margin: 2%;
+    display: inline-block;
+}
+
+#film-image {
+    margin: 5%;
+    border-radius: 10px;
+    box-shadow: 10px 10px 8px #888888;
+}
+
+#film-description {
+    font-size: 0.5rem;
+}
+
+#header {
+    display: inline-block;
 }
