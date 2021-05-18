@@ -1,7 +1,11 @@
 body {
+    margin: 0;
     background-color: tan;
 }
 
+.page-title {
+    margin: 1rem 0 1rem 0.2rem;
+}
 #error-container {
     width: 25%;
     border: 2px solid black;
@@ -17,34 +21,52 @@ body {
 }
 
 .page-header {
-    border-bottom: 1px solid black;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 0.8rem;
+}
+
+#film-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    border-top: 1px solid #000;
+    padding: 1.2rem;
 }
 
 #film-card {
     border: 1px solid blue;
-    border-radius: 10px;
+    border-radius: 1rem;
     width: 20%;
-    height: 70%;
-    text-align: center;
-    margin: 2%;
-    display: inline-block;
+    margin: 1rem 1.5%;
+    padding: 0;
 }
 
 #film-image {
-    margin: 5%;
-    width: 90%;
-    height: 80%;
-    border-radius: 10px;
+    
+    width: 100%;
+    height: 20rem;
+    margin: 0 auto;
+    object-fit: cover;
+    border-radius: 1rem 1rem 0 0;
     
 }
 
+#film-name {
+    text-align: center;
+    margin: 0.3rem;
+    font-weight: 600;
+    font-size: 1.3rem;
+}
 #film-description {
+    text-align: center;
     font-size: 0.5rem;
 }
 
+#film-cast {
+    text-align: center;
+}
 #header {
     display: inline-block;
 }
