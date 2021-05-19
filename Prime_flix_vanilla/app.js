@@ -59,7 +59,7 @@ app.get("*", (req, res) => {
     res.render("error")
 })
 
-let port = 2200;
+let port = 2000;
 app.listen(port, () => {
-    console.log("Primeflix is running on localhost:" + port)
+    console.log("Primeflix_vanilla is running on localhost:" + port)
 });

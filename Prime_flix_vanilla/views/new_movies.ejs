@@ -1,0 +1,23 @@
+<%- include("partials/header") %>
+    <h1>Have you watched any good new movies:</h1>
+
+    <form class="newmovie-form" action="/movies" method="POST">
+        <label for="name">Name: </label>
+        <input name="name" type="text">
+
+        <label for="description">Description: </label>
+        <input name= "description" type="text">
+        
+        <label for="casts">Casts: </label>
+        <input name= "casts" type="text">
+
+        <label for="artwork">Artwork Link: </label>
+        <input name= "artwork" type="text">
+
+        <br>
+        <br>
+
+        <button type="submit" class="submit-btn">Submit</button>
+    </form>
+
+<%- include("partials/footer") %>
