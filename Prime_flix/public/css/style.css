@@ -3,8 +3,13 @@ body {
     background-color: tan;
 }
 
+.landing-page {
+    text-align: center;
+    margin-top: 10%;
+    box-shadow: 10px 10px 8px white;
+}
 .page-title {
-    margin: 1rem 0 1rem 0.2rem;
+    margin: auto;
 }
 #error-container {
     width: 25%;
@@ -70,3 +75,4 @@ body {
 #header {
     display: inline-block;
 }
+
