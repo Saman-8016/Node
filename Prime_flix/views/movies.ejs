@@ -1,8 +1,9 @@
 <%- include("partials/header") %>
+    
     <div id="container">
-        <div class="page-header">
-            <h1 class="page-title">Movies Page</h1>
-        </div>
+        <h1 class="page-title">
+            Movies Page
+        </h1>
         <div id="film-container">
             <% films.forEach((film) => { %>
             <div id="film-card">
@@ -12,7 +13,7 @@
                 <p id="film-description"><%= film.description %></p>
             </div>
             <% }) %>
-            </div>
         </div>
     </div>
+
 <%- include("partials/footer") %>
