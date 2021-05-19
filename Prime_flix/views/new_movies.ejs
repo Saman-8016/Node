@@ -1,7 +1,7 @@
 <%- include("partials/header") %>
     <h1>Have you watched any good new movies:</h1>
 
-    <form action="/movies" method="POST">
+    <form class="newmovie-form" action="/movies" method="POST">
         <label for="name">Name: </label>
         <input name="name" type="text">
 
@@ -17,7 +17,7 @@
         <br>
         <br>
 
-        <button type="submit">Submit</button>
+        <button type="submit" class="submit-btn">Submit</button>
     </form>
 
 <%- include("partials/footer") %>

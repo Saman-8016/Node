@@ -51,6 +51,10 @@ app.post("/movies", (req, res) => {
     res.redirect("/movies")
 })
 
+app.get("/login", (req, res) => {
+    res.render("/login")
+})
+
 app.get("*", (req, res) => {
     res.render("error")
 })

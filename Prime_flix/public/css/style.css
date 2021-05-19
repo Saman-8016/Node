@@ -3,6 +3,25 @@ body {
     background-color: tan;
 }
 
+.submit-btn {
+    width: 10%;
+    border-radius: 5px;
+    margin: 10% 45%;
+    cursor: pointer;
+}
+.submit-btn:hover {
+    background-color: red;
+}
+
+.newmovie-form {
+    text-align: center;   
+}
+
+.login-form {
+    margin-left: 10%;
+    margin-top: 15%;
+}
+
 .landing-page {
     text-align: center;
     margin-top: 10%;
@@ -12,15 +31,15 @@ body {
     margin: auto;
 }
 #error-container {
-    width: 25%;
+    margin: auto;
+    justify-content: center;
+    display: flex;
     border: 2px solid black;
     border-radius: 5px;
-    margin-left: 25%;
-    margin-top: 5%;
+
 }
 
 #error {
-    margin-left: 10%;
     color: red;
     font-size: 1.4rem;
 }
