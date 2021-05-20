@@ -1,7 +1,26 @@
 <%- include("partials/header") %>
-    <h1>Have you watched any good new movies:</h1>
-
-    <form class="newmovie-form" action="/movies" method="POST">
+    <div class="container">
+        <form action="/movies" method="POST">
+            <div class="mb-3">
+                <label for="name" class="form-label">Name:</label>
+                <input type="text" class="form-control" name="name" placeholder="e.g. The Matrix" autofocus>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description:</label>
+                <input type="text" class="form-control" name="description">
+            </div>
+            <div class="mb-3">
+                <label for="casts" class="form-label">Casts:</label>
+                <input type="text" class="form-control" name="casts">
+            </div>
+            <div class="mb-3">
+                <label for="artwork" class="form-label">Artwork Link:</label>
+                <input type="text" class="form-control" name="artwork" placeholder="e.g. https://www.myimage.com">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+    <!-- <form class="newmovie-form" action="/movies" method="POST">
         <label for="name">Name: </label>
         <input name="name" type="text">
 
@@ -18,6 +37,6 @@
         <br>
 
         <button type="submit" class="submit-btn">Submit</button>
-    </form>
+    </form> -->
 
 <%- include("partials/footer") %>
