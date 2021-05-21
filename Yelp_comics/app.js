@@ -1,6 +1,9 @@
 const bodyParser = require("body-parser");
 const express = require("express");
 const app = express();
+const config = require("./config");
+
+console.log(config.db.username);
 
 app.set("view engine", "ejs");
 app.use(express.static("public"));
