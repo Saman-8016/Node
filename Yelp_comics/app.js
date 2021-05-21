@@ -3,7 +3,9 @@ const express = require("express");
 const app = express();
 const config = require("./config");
 
-console.log(config.db.username);
+const mongoose = require('mongoose');
+mongoose.connect(config.db.connection, {useNewUrlParser: true, useUnifiedTopology: true});
+
 
 app.set("view engine", "ejs");
 app.use(express.static("public"));
