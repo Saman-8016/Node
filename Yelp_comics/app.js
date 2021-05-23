@@ -27,11 +27,9 @@ app.get("/comics", (req, res) => {
 		console.log(err)
 		res.send("err")
 	})
-	
 })
 
 app.post("/comics", (req, res) => {
-	
 	const newComic = {
 		title: req.body.title,
 		description: req.body.description,
