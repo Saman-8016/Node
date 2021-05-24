@@ -30,9 +30,17 @@ app.get("/comics", (req, res) => {
 })
 
 app.post("/comics", (req, res) => {
+	const genre = req.body.genre.toLowerCase();
 	const newComic = {
 		title: req.body.title,
 		description: req.body.description,
+		author: req.body.author,
+		publisher: req.body.author,
+		date: req.body.date,
+		series: req.body.series,
+		issue: req.body.issue,
+		genre,
+		color: !!req.body.color,
 		image: req.body.image
 	}
 
