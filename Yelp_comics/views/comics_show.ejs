@@ -1,0 +1,56 @@
+<%- include("partials/header") %>
+<div class="container">
+    <div class="row mt-3">
+        <div class="col-6 show_image-container">
+            <img src="<%= comic.image %>" alt="the picture of the comic">
+        </div>
+        <div class="col-6 show_details-container">
+            <h1><%= comic.title %></h1>
+            <p><%= comic.description %></p>
+            <table class="table">
+                <tbody>
+                    <tr>
+                    <th scope="row">Author</th>
+                    <td><%= comic.author %></td>
+                    </tr>
+                    <tr>
+                    <th scope="row">Publisher</th>
+                    <td><%= comic.publisher %></td>
+                    </tr>
+                    <tr>
+                    <th scope="row">Date</th>
+                    <td><%= comic.date %></td>
+                    </tr>
+                    <tr>
+                    <th scope="row">Series</th>
+                    <td><%= comic.series %></td>
+                    </tr>
+                    <tr>
+                    <th scope="row">Issue</th>
+                    <td><%= comic.issue %></td>
+                    </tr>
+                    <tr>
+                    <th scope="row">Genre</th>
+                    <td><%= comic.genre %></td>
+                    </tr>
+                    <tr>
+                    <th scope="row">Color?</th>
+                    <td><%= comic.color %></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row show_comment-header mt-3">
+        COMMEND HERE
+    </div>
+    <div class="row show_comment-container py-2">
+        <div class="col-3">
+            Username
+        </div>
+        <div class="col-9">
+            Comment text here
+        </div>
+    </div>
+</div>
+<%- include("partials/footer") %>

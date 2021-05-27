@@ -23,3 +23,9 @@
 	font-family: 'Roboto', sans-serif;
 	line-height: 1.4;
 }
+
+/* show_comics*/
+
+.show_image-container img {
+	width: 80%;
+}

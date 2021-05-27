@@ -58,6 +58,17 @@ app.post("/comics", (req, res) => {
 app.get("/comics/new", (req, res) => {
 	res.render("comics_new");
 })
+
+app.get("/comics/:id", (req, res) => {
+	Comic.findById(req.params.id)
+	.exec()
+	.then((comic) => {
+		res.render("comics_show", {comic})
+	})
+	.catch((err) => {
+		res.send(err)
+	})
+})
 let port = 12345;
 app.listen(port, () => {
 	console.log("yelp comic is running on localhost:"+port);
