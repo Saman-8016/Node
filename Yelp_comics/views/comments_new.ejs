@@ -1,0 +1,24 @@
+<%- include("partials/header") %>
+
+<div class="container">
+    <h1>
+        Add New Comment
+    </h1>
+    <form action="/comics/<%= comicId %>/comments" method="POST">
+        <div class="form-group">
+            <label for="user" class="form-label">Username</label>
+            <input type="text" name="user" id="user" class="form-control" placeholder="Username" required autofocus>
+        </div>
+
+        <div class="form-group">
+            <label for="text" class="form-label">Comment Text</label>
+            <textarea name="text" id="text" class="form-control" cols="80" rows="8" placeholder="Comment text here ..." required></textarea>
+        </div>
+        <input type="hidden" name="comicId" value="<%= comicId %>">
+        <button type="submit" class="btn btn-primary">Submit Comment</button>
+    </form>
+</div>
+
+
+
+<%- include("partials/footer") %>

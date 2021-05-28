@@ -34,12 +34,8 @@ User.create({
     full_name: "Paul Atreides",
     addresses: []
 })
-.then((newUser) => {
-    console.log(newUser)
-})
-.catch((err) => {
-    console.log(err)
-})
+.then((newUser) => console.log(newUser))
+.catch((err) => console.log(err))
 
 Address.create({
     street: "123 Any street",
