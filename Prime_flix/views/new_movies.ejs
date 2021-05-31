@@ -14,29 +14,33 @@
                 <input type="text" class="form-control" name="casts">
             </div>
             <div class="mb-3">
+                <label for="origin" class="form-label">Origin:</label>
+                <input type="text" class="form-control" name="origin">
+            </div>
+            <div class="mb-3">
+                <label for="genre" class="form-label">Genre</label>
+                <select name="genre" id="genre" class="form-control">
+                    <option disabled selected>-- Select Genre --</option>
+                    <option>Action</option>
+                    <option>Horror</option>
+                    <option>Drama</option>
+                    <option>Tragedy</option>
+                    <option>Romantic</option>
+                    <option>Family</option>
+                    <option>Sci-fi</option>
+                    <option>Comedy</option>
+                    <option>Noir</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="year" class="form-label">Year:</label>
+                <input type="String" class="form-control" name="year">
+            </div>
+            <div class="mb-3">
                 <label for="artwork" class="form-label">Artwork Link:</label>
                 <input type="text" class="form-control" name="artwork" placeholder="e.g. https://www.myimage.com">
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
-    <!-- <form class="newmovie-form" action="/movies" method="POST">
-        <label for="name">Name: </label>
-        <input name="name" type="text">
-
-        <label for="description">Description: </label>
-        <input name= "description" type="text">
-        
-        <label for="casts">Casts: </label>
-        <input name= "casts" type="text">
-
-        <label for="artwork">Artwork Link: </label>
-        <input name= "artwork" type="text">
-
-        <br>
-        <br>
-
-        <button type="submit" class="submit-btn">Submit</button>
-    </form> -->
-
 <%- include("partials/footer") %>

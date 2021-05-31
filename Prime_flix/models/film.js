@@ -4,6 +4,9 @@ const filmSchema = new mongoose.Schema({
     name: String,
     description: String,
     casts: String,
+    origin: String,
+    genre: String,
+    year: String,
     artwork: String
 });
 
