@@ -6,7 +6,7 @@ const filmSchema = new mongoose.Schema({
     casts: String,
     origin: String,
     genre: String,
-    year: String,
+    date: Date,
     artwork: String
 });
 

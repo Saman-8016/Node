@@ -24,13 +24,14 @@ router.get("/movies/:id", (req, res) => {
 });
 
 router.post("/movies", (req, res) => {
+    const genre = req.body.genre.toLowerCase();
     const newFilm = {
         name: req.body.name,
         description: req.body.description,
         casts: req.body.casts,
-        origin: req.body.origin, 
-        genre: req.body.genre,
-        year: req.body.year,
+        origin: req.body.origin,
+        genre: genre,
+        date: req.body.date,
         artwork: req.body.artwork
     }
 
