@@ -9,17 +9,17 @@ router.get("/movies/:id/comments/new", (req, res) => {
 router.post("/movies/:id/comments", (req, res) => {
     //create the comment
     Comment.create({
-        user:req.body.user,
+        user: req.body.user,
         text: req.body.text,
         filmId: req.body.filmId
     })
     .then((newComment) => {
         console.log(newComment);
-        res.redirect('/movies/'+req.body.filmId)
+        res.redirect("/movies/" + req.body.filmId)
     })
     .catch((err) => {
         console.log(err)
-        res.redirect('/comics/'+req.body.filmId)
+        res.redirect("/movies/" + req.body.filmId)
     })
 })
 

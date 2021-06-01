@@ -1,10 +1,9 @@
 const express = require("express");
-const router = express();
+const router = express.Router();
 const Film = require("../models/film");
 
 
 router.get("/movies", (req, res) => {
-    // res.render("movies", {films})
     Film.find()
     .exec()
     .then((foundfilms) => {

@@ -7,6 +7,9 @@ const mongoose = require('mongoose');
 // Config Import
 const config = require("./config");
 
+const Film = require("./models/film");
+const Comment = require("./models/comment");
+
 mongoose.connect(config.db.connection, {useNewUrlParser: true, useUnifiedTopology: true});
 
 // Routes
