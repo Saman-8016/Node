@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Comic = require('../models/comic');
 
-router.get("/comics", (req, res) => {
+router.get("/", (req, res) => {
 	Comic.find()
 	.exec()
 	.then((foundComics) => {
@@ -14,7 +14,7 @@ router.get("/comics", (req, res) => {
 	})
 })
 
-router.post("/comics", (req, res) => {
+router.post("/", (req, res) => {
 	const genre = req.body.genre.toLowerCase();
 	const newComic = {
 		title: req.body.title,
@@ -40,11 +40,11 @@ router.post("/comics", (req, res) => {
 	})
 });
 
-router.get("/comics/new", (req, res) => {
+router.get("/new", (req, res) => {
 	res.render("comics_new");
 })
 
-router.get("/comics/:id", (req, res) => {
+router.get("/:id", (req, res) => {
 	Comic.findById(req.params.id)
 	.exec()
 	.then((comic) => {

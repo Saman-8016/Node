@@ -1,13 +1,13 @@
 const express = require("express");
-const router = express.Router();
+const router = express.Router({mergeParams: true});
 const Comment = require("../models/comment")
 
-router.get("/comics/:id/comments/new", (req, res) => {
+router.get("/new", (req, res) => {
 	res.render("comments_new", {comicId: req.params.id})
 })
 
 
-router.post("/comics/:id/comments", (req, res) => {
+router.post("/", (req, res) => {
 	// create the comment
 	Comment.create({
 		user: req.body.user,

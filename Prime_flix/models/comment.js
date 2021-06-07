@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const commentSchema = new mongoose.Schema({
     user: String,
@@ -9,7 +9,4 @@ const commentSchema = new mongoose.Schema({
     }
 });
 
-const Comment = mongoose.model("comment", commentSchema);
-
-module.exports = Comment;
-
+module.exports = mongoose.model("comment", commentSchema);

@@ -23,9 +23,9 @@ app.use(express.static("public"));
 app.use(express.urlencoded({extended: true}));
 
 // Use Routes
-app.use(mainRoutes);
-app.use(comicRoutes);
-app.use(commentRoutes);
+app.use("/", mainRoutes);
+app.use("/comics", comicRoutes);
+app.use("/comics/:id/comments", commentRoutes);
 
 let port = 12345;
 app.listen(port, () => console.log("yelp comic is running on localhost:"+port));
