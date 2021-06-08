@@ -11,7 +11,7 @@ router.post("/movies/:id/comments", (req, res) => {
     // create the comment
     Comment.create({
         user: req.body.user,
-        type: req.body.text,
+        text: req.body.text,
         filmId: req.body.filmId
     })
     .then((newComment) => {

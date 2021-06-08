@@ -42,15 +42,18 @@
         </div>
     </div>
     <div class="row show_comment-header mt-3">
-        COMMEND HERE
+        COMMENT HEADER
     </div>
-    <div class="row show_comment-container py-2">
-        <div class="col-3">
-            Username
+    <% comments.forEach((comment) => { %>
+        <div class="row show_comment-container py-2">
+            <div class="col-3">
+                <%= comment.user %>
+            </div>
+            <div class="col-9">
+                <%= comment.text %>
+            </div>
         </div>
-        <div class="col-9">
-            Comment text here
-        </div>
-    </div>
+    <% }) %>
+    
 </div>
 <%- include("partials/footer") %>

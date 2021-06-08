@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Film = require("../models/film");
+const Comment = require("../models/comment");
 
 
 router.get("/movies", (req, res) => {
@@ -19,9 +20,18 @@ router.get("/movies/:id", (req, res) => {
     Film.findById(req.params.id)
     .exec()
     .then((film) => {
-        res.render("show_page", {film})
+        Comment.find({filmId: req.params.id}, (err, comments) => {
+            if (err) {
+                res.send(err)
+            } else {
+                res.render("show_page", {film, comments})
+            }
+        })
     })
-});
+    .catch((err) => {
+        res.send(err)
+    })
+})
 
 router.post("/movies", (req, res) => {
     const genre = req.body.genre.toLowerCase();

@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Comic = require('../models/comic');
+const Comment = require("../models/comment");
 
 router.get("/", (req, res) => {
 	Comic.find()
@@ -48,7 +49,13 @@ router.get("/:id", (req, res) => {
 	Comic.findById(req.params.id)
 	.exec()
 	.then((comic) => {
-		res.render("comics_show", {comic})
+		Comment.find({comicId: req.params.id}, (err, comments) => {
+			if (err) {
+				res.send(err)
+			} else {
+				res.render("comics_show", {comic, comments})
+			}
+		})
 	})
 	.catch((err) => {
 		res.send(err)
