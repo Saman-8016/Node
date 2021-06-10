@@ -1,0 +1,46 @@
+<%- include("partials/header") %>
+    <div class="container">
+        <form action="/movies" method="POST">
+            <div class="mb-3">
+                <label for="name" class="form-label">Name:</label>
+                <input type="text" class="form-control" name="name" value="<%= film.name %>">
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description:</label>
+                <input type="text" class="form-control" name="description" value="<%= film.description %>">
+            </div>
+            <div class="mb-3">
+                <label for="casts" class="form-label">Casts:</label>
+                <input type="text" class="form-control" name="casts" value="<%= film.casts %>">
+            </div>
+            <div class="mb-3">
+                <label for="origin" class="form-label">Origin:</label>
+                <input type="text" class="form-control" name="origin" value="<%= film.origin %>">
+            </div>
+            <div class="mb-3">
+                <label for="genre" class="form-label">Genre</label>
+                <select name="genre" id="genre" class="form-control">
+                    <option disabled>-- Select Genre --</option>
+                    <option <%= film.genre === "action" ? "selected" : '' %>>Action</option>
+                    <option <%= film.genre === "horror" ? "selected" : '' %>>Horror</option>
+                    <option <%= film.genre === "drama" ? "selected" : '' %>>Drama</option>
+                    <option <%= film.genre === "tragedy" ? "selected" : '' %>>Tragedy</option>
+                    <option <%= film.genre === "romantic" ? "selected" : '' %>>Romantic</option>
+                    <option <%= film.genre === "family" ? "selected" : '' %>>Family</option>
+                    <option <%= film.genre === "sci-fi" ? "selected" : '' %>>Sci-fi</option>
+                    <option <%= film.genre === "comdey" ? "selected" : '' %>>Comedy</option>
+                    <option <%= film.genre === "noir" ? "selected" : '' %>>Noir</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="date" class="form-label">Date:</label>
+                <input type="date" class="form-control" name="date" value="<%= film.date.toISOString().split('T')[0] %>">
+            </div>
+            <div class="mb-3">
+                <label for="artwork" class="form-label">Artwork Link:</label>
+                <input type="text" class="form-control" name="artwork" value="<%= film.artwork %>">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+<%- include("partials/footer") %>
