@@ -3,9 +3,11 @@ const bodyParser = require("body-parser");
 const express = require("express");
 const app = express();
 const mongoose = require('mongoose');
+const methodOverride = require("method-override")
 
 // Config Import
 const config = require("./config");
+
 
 // Route Imports
 const comicRoutes = require('./routes/comics');
@@ -18,9 +20,11 @@ const Comment = require("./models/comment");
 
 mongoose.connect(config.db.connection, {useNewUrlParser: true, useUnifiedTopology: true});
 
+// config
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(express.urlencoded({extended: true}));
+app.use(methodOverride('_method'));
 
 // Use Routes
 app.use("/", mainRoutes);

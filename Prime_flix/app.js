@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
+const methodOverride = require('method-override');
 
 // Config Import
 const config = require("./config");
@@ -23,6 +24,7 @@ mongoose.connect(config.db.connection, {useNewUrlParser: true, useUnifiedTopolog
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(methodOverride("_method"));
 
 
 // Use Routes

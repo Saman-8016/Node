@@ -68,4 +68,26 @@ router.get("/movies/:id/edit", (req, res) => {
 
 })
 
+router.put("/movies/:id", (req, res) => {
+    const genre = req.body.genre.toLowerCase();
+    const film = {
+        name: req.body.name,
+        description: req.body.description,
+        casts: req.body.casts,
+        origin: req.body.origin,
+        genre: genre,
+        date: req.body.date,
+        artwork: req.body.artwork
+    }
+    Film.findByIdAndUpdate(req.params.id, film, {new: true})
+    .exec()
+    .then((updatedFilm) => {
+        console.log(updatedFilm);
+        res.redirect("/movies/"+req.params.id);
+    })
+    .catch((err) => {
+        res.send("Error! ", err);
+    })
+})
+
 module.exports = router;

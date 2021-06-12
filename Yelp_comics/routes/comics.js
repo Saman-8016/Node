@@ -21,7 +21,7 @@ router.post("/", (req, res) => {
 		title: req.body.title,
 		description: req.body.description,
 		author: req.body.author,
-		publisher: req.body.author,
+		publisher: req.body.publisher,
 		date: req.body.date,
 		series: req.body.series,
 		issue: req.body.issue,
@@ -67,6 +67,32 @@ router.get("/:id/edit", (req, res) => {
 	.exec()
 	.then((comic) => {
 		res.render("comic_edit", {comic})
+	})
+})
+
+router.put("/:id", (req, res) => {
+	const genre = req.body.genre.toLowerCase();
+	const comic = {
+		title: req.body.title,
+		description: req.body.description,
+		author: req.body.author,
+		publisher: req.body.publisher,
+		date: req.body.date,
+		series: req.body.series,
+		issue: req.body.issue,
+		genre,
+		color: !!req.body.color,
+		image: req.body.image
+	}
+
+	Comic.findByIdAndUpdate(req.params.id, comic, {new:true})
+	.exec()
+	.then((updatedComic) => {
+		console.log(updatedComic);
+		res.redirect("/comics/"+req.params.id);
+	})
+	.catch((err) => {
+		res.send("Error: ", err);
 	})
 })
 

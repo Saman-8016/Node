@@ -1,5 +1,5 @@
 <%- include("partials/header") %>
-	<form action="/comics" method="POST" class="mx-3">
+	<form action="/comics/<%= comic._id %>?_method=PUT" method="POST" class="mx-3">
 		<h1>Add new Comic</h1>
 		<div class="mb-3 form-group">
 			<label for="title" class="form-label">Title:</label>
