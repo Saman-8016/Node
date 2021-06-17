@@ -1,6 +1,6 @@
 <%- include("partials/header") %>
 	<form action="/comics/<%= comic._id %>?_method=PUT" method="POST" class="mx-3">
-		<h1>Add new Comic</h1>
+		<h1>Edit Comic</h1>
 		<div class="mb-3 form-group">
 			<label for="title" class="form-label">Title:</label>
 			<input type="text" name= "title" class="form-control" value="<%= comic.title %>">
