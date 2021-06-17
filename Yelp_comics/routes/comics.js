@@ -3,6 +3,7 @@ const router = express.Router();
 const Comic = require('../models/comic');
 const Comment = require("../models/comment");
 
+//Index
 router.get("/", (req, res) => {
 	Comic.find()
 	.exec()
@@ -14,7 +15,7 @@ router.get("/", (req, res) => {
 		res.send("err")
 	})
 })
-
+//Create
 router.post("/", (req, res) => {
 	const genre = req.body.genre.toLowerCase();
 	const newComic = {
@@ -33,7 +34,7 @@ router.post("/", (req, res) => {
 	Comic.create(newComic)
 	.then((comic) => {
 		console.log(comic)
-		res.redirect("/comics")
+		res.redirect("/comics/"+comic._id)
 	})
 	.catch((err) => {
 		console.log(err)
@@ -41,10 +42,12 @@ router.post("/", (req, res) => {
 	})
 });
 
+//New
 router.get("/new", (req, res) => {
 	res.render("comics_new");
 })
 
+//Show
 router.get("/:id", (req, res) => {
 	Comic.findById(req.params.id)
 	.exec()
@@ -62,6 +65,7 @@ router.get("/:id", (req, res) => {
 	})
 })
 
+//Edit
 router.get("/:id/edit", (req, res) => {
 	Comic.findById(req.params.id)
 	.exec()
@@ -70,6 +74,7 @@ router.get("/:id/edit", (req, res) => {
 	})
 })
 
+//Update
 router.put("/:id", (req, res) => {
 	const genre = req.body.genre.toLowerCase();
 	const comic = {
@@ -93,6 +98,19 @@ router.put("/:id", (req, res) => {
 	})
 	.catch((err) => {
 		res.send("Error: ", err);
+	})
+})
+
+//Delete
+router.delete("/:id", (req, res) => {
+	Comic.findByIdAndDelete(req.params.id)
+	.exec()
+	.then((deletedComic) => {
+		console.log("Deleted: ", deletedComic);
+		res.redirect("/comics");
+	})
+	.catch((err) => {
+		res.send("Error Deleteing:", err);
 	})
 })
 

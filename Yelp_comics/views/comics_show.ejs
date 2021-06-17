@@ -40,10 +40,10 @@
                 </tbody>
             </table>
             <a href="/comics/<%= comic._id %>/edit">
-                <button class="btn btn-outline-info btn-lg btn-block mb-2">EDIT</button>
+                <button class="btn btn-outline-info btn-lg col-12 mb-2">EDIT</button>
             </a>
-            <form action="">
-                <button class="btn btn-outline-danger btn-lg btn-block">DELETE</button>
+            <form action="/comics/<%= comic._id %>?_method=DELETE" method="POST">
+                <button type="submit" class="btn btn-outline-danger btn-lg col-12">DELETE</button>
             </form>
         </div>
     </div>

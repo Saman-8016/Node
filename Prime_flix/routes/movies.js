@@ -90,4 +90,16 @@ router.put("/movies/:id", (req, res) => {
     })
 })
 
+router.delete("/movies/:id", (req, res) => {
+    Film.findByIdAndDelete(req.params.id)
+    .exec()
+    .then((deletedFilm) => {
+        console.log("Deleted: ", deletedFilm);
+        res.redirect("/movies");
+    })
+    .catch((err) => {
+        res.send("Error Deleteing: ", err);
+    })
+})
+
 module.exports = router;
