@@ -4,19 +4,19 @@ const Comic = require('../models/comic');
 const Comment = require("../models/comment");
 
 //Index
-router.get("/", (req, res) => {
-	Comic.find()
-	.exec()
-	.then((foundComics) => {
-		res.render("comics", {comics: foundComics})
-	})
-	.catch((err) => {
-		console.log(err)
-		res.send("err")
-	})
+router.get("/", async (req, res) => {
+	try {
+		const comics = await Comic.find().exec()
+		res.render("comics", {comics})
+	} catch (err) {
+		console.log(err);
+		res.send("You Brok it ... /index");
+	}
+	
+	
 })
 //Create
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
 	const genre = req.body.genre.toLowerCase();
 	const newComic = {
 		title: req.body.title,
@@ -31,15 +31,14 @@ router.post("/", (req, res) => {
 		image: req.body.image
 	}
 
-	Comic.create(newComic)
-	.then((comic) => {
+	try {
+		const comic = await Comic.create(newComic)
 		console.log(comic)
-		res.redirect("/comics/"+comic._id)
-	})
-	.catch((err) => {
-		console.log(err)
-		res.redirect("/comics")
-	})
+		res.redirect("/comics/" + comic._id)
+	} catch (err) {
+		console.log(err);
+		res.send("You Broke it ... / comics POST")
+	}
 });
 
 //New
@@ -48,36 +47,32 @@ router.get("/new", (req, res) => {
 })
 
 //Show
-router.get("/:id", (req, res) => {
-	Comic.findById(req.params.id)
-	.exec()
-	.then((comic) => {
-		Comment.find({comicId: req.params.id}, (err, comments) => {
-			if (err) {
-				res.send(err)
-			} else {
-				res.render("comics_show", {comic, comments})
-			}
-		})
-	})
-	.catch((err) => {
-		res.send(err)
-	})
+router.get("/:id", async (req, res) => {
+	try {
+		const comic = await Comic.findById(req.params.id).exec();
+		const comments = await Comment.find({comicId: req.params.id})
+		res.render("comics_show", {comic, comments})
+	} catch (err) {
+		console.log(err);
+		res.send("Your Broke it ... /comics/:id")
+	}
 })
 
 //Edit
-router.get("/:id/edit", (req, res) => {
-	Comic.findById(req.params.id)
-	.exec()
-	.then((comic) => {
-		res.render("comic_edit", {comic})
-	})
+router.get("/:id/edit", async (req, res) => {
+	try {
+		const comic = await Comic.findById(req.params.id).exec();
+		res.render("comic_edit", {comic});
+	} catch (err) {
+		console.log(err);
+		res.send("Broken... /comics/id/edit");
+	}
 })
 
 //Update
-router.put("/:id", (req, res) => {
+router.put("/:id", async (req, res) => {
 	const genre = req.body.genre.toLowerCase();
-	const comic = {
+	const comicBody = {
 		title: req.body.title,
 		description: req.body.description,
 		author: req.body.author,
@@ -90,28 +85,25 @@ router.put("/:id", (req, res) => {
 		image: req.body.image
 	}
 
-	Comic.findByIdAndUpdate(req.params.id, comic, {new:true})
-	.exec()
-	.then((updatedComic) => {
-		console.log(updatedComic);
+	try {
+		const comic = await Comic.findByIdAndUpdate(req.params.id, comicBody, {new:true}).exec();
 		res.redirect("/comics/"+req.params.id);
-	})
-	.catch((err) => {
-		res.send("Error: ", err);
-	})
+	} catch (err) {
+		console.log(err);
+		res.send("Broken ... /comic/:id PUT")
+	}
+	
 })
 
 //Delete
-router.delete("/:id", (req, res) => {
-	Comic.findByIdAndDelete(req.params.id)
-	.exec()
-	.then((deletedComic) => {
-		console.log("Deleted: ", deletedComic);
+router.delete("/:id", async (req, res) => {
+	try {
+		const comic = await Comic.findByIdAndDelete(req.params.id).exec();
 		res.redirect("/comics");
-	})
-	.catch((err) => {
-		res.send("Error Deleteing:", err);
-	})
+	} catch {
+		console.log(err);
+		res.send("Brokennn /comics/:id DELETE")
+	}
 })
 
 module.exports = router;
