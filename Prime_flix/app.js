@@ -1,14 +1,19 @@
+// ========================
+// IMPORTS
+// ========================
+
 // NPM Imports 
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
+var morgan = require("morgan");
 
 // Config Import
 const config = require("./config");
 
-// Routes
+// Route Import
 const mainRoute = require("./routes/main");
 const movieRoute = require("./routes/movies");
 const loginRoute = require("./routes/login");
@@ -19,22 +24,45 @@ const errorRoute = require("./routes/error");
 const Film = require("./models/film");
 const Comment = require("./models/comment");
 
+// ========================
+// DEVELOPMENT
+// ========================
+
+// Morgan
+app.use(morgan('tiny'));
+
+// Seed the DB
+const seed = require("./utils/seed");
+seed()
+
+// ========================
+// CONFIG
+// ========================
+
+// Connect to DB
 mongoose.connect(config.db.connection, {useNewUrlParser: true, useUnifiedTopology: true});
 
+// Express Config
 app.set("view engine", "ejs");
 app.use(express.static("public"));
+
+// Body Parser Config
 app.use(bodyParser.urlencoded({extended: true}));
+
+// Method Override Config
 app.use(methodOverride("_method"));
 
 
-// Use Routes
+// Routes Config
 app.use(mainRoute);
 app.use(movieRoute);
 app.use(commentRoute);
 app.use(loginRoute);
 app.use(errorRoute);
 
-
+// ========================
+// LISTEN
+// ========================
 
 let port = 2200;
 app.listen(port, () => {

@@ -4,36 +4,35 @@ const Film = require("../models/film");
 const Comment = require("../models/comment");
 
 
-router.get("/movies", (req, res) => {
-    Film.find()
-    .exec()
-    .then((foundfilms) => {
-        res.render("movies", {films: foundfilms})
-    })
+router.get("/movies", async (req, res) => {
+    try {
+        const films = await Film.find().exec()
+        res.render("movies", {films})
+    } catch (err) {
+        console.log(err);
+        res.send("You Broke it ... /movies");
+    }
+    
 });
 
 router.get("/movies/new", (req, res) => {
     res.render("new_movies")
 });
 
-router.get("/movies/:id", (req, res) => {
-    Film.findById(req.params.id)
-    .exec()
-    .then((film) => {
-        Comment.find({filmId: req.params.id}, (err, comments) => {
-            if (err) {
-                res.send(err)
-            } else {
-                res.render("show_page", {film, comments})
-            }
-        })
-    })
-    .catch((err) => {
-        res.send(err)
-    })
-})
+//Show
+router.get("/movies/:id", async (req, res) => {
 
-router.post("/movies", (req, res) => {
+    try {
+        const film = await Film.findById(req.params.id).exec();
+        const comments = await Comment.find({filmId: req.params.id});
+        res.render("show_page", {film, comments})
+    } catch (err) {
+        console.log(err);
+        res.send("Broken ... movies/:id show")
+    }
+})
+//Create
+router.post("/movies", async (req, res) => {
     const genre = req.body.genre.toLowerCase();
     const newFilm = {
         name: req.body.name,
@@ -45,32 +44,32 @@ router.post("/movies", (req, res) => {
         artwork: req.body.artwork
     }
 
-    Film.create(newFilm)
-    .then((film) => {
-		console.log(film)
-		res.redirect("/movies")
-	})
-	.catch((err) => {
-		console.log(err)
-		res.redirect("/movies")
-	})
+    try {
+        const film = await Film.create(newFilm);
+        console.log(film);
+        res.redirect("/movies")
+    } catch (err) {
+        console.log(err);
+        res.send("You Broke it ... movies POST")
+    }
 });
 
-router.get("/movies/:id/edit", (req, res) => {
-    Film.findById(req.params.id)
-    .exec()
-    .then((film) => {
+//Edit
+router.get("/movies/:id/edit", async (req, res) => {
+    try {
+        const film = await Film.findById(req.params.id).exec();
         res.render("movie_edit", {film})
-    })
-    .catch((err) => {
-        res.send(err)
-    })
 
+    } catch (err) {
+        console.log(err);
+        res.send("You Broke it ... / Edit")
+    }
 })
 
-router.put("/movies/:id", (req, res) => {
+//Update
+router.put("/movies/:id", async (req, res) => {
     const genre = req.body.genre.toLowerCase();
-    const film = {
+    const filmBody = {
         name: req.body.name,
         description: req.body.description,
         casts: req.body.casts,
@@ -79,27 +78,24 @@ router.put("/movies/:id", (req, res) => {
         date: req.body.date,
         artwork: req.body.artwork
     }
-    Film.findByIdAndUpdate(req.params.id, film, {new: true})
-    .exec()
-    .then((updatedFilm) => {
-        console.log(updatedFilm);
+    try {
+        const film = await Film.findByIdAndUpdate(req.params.id, filmBody, {new: true}).exec();
         res.redirect("/movies/"+req.params.id);
-    })
-    .catch((err) => {
-        res.send("Error! ", err);
-    })
+    } catch (err) {
+        console.log(err);
+        res.send("You Broke it again ... /movies/:id PUT")
+    }
 })
 
-router.delete("/movies/:id", (req, res) => {
-    Film.findByIdAndDelete(req.params.id)
-    .exec()
-    .then((deletedFilm) => {
-        console.log("Deleted: ", deletedFilm);
-        res.redirect("/movies");
-    })
-    .catch((err) => {
-        res.send("Error Deleteing: ", err);
-    })
+router.delete("/movies/:id", async (req, res) => {
+
+    try {
+        const film = await Film.findByIdAndDelete(req.params.id).exec();
+        res.redirect("/movies")
+    } catch (err) {
+        console.log(err);
+        res.send("Your broke it .. / movies/:id DELETE")
+    }
 })
 
 module.exports = router;
