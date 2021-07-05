@@ -13,7 +13,6 @@ router.get("/", async (req, res) => {
 		res.send("You Brok it ... /index");
 	}
 	
-	
 })
 //Create
 router.post("/", async (req, res) => {
