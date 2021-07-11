@@ -19,9 +19,22 @@ router.get("/movies/new", (req, res) => {
     res.render("new_movies")
 });
 
+router.get("/movies/search", async (req, res) => {
+    try {
+        const films = await Film.find({
+            $text: {
+                $search: req.query.term
+            }
+        })
+        res.render("movies", {films});
+    } catch (err) {
+        console.log(err);
+        res.send("Broken Search")
+    }
+})
+
 //Show
 router.get("/movies/:id", async (req, res) => {
-
     try {
         const film = await Film.findById(req.params.id).exec();
         const comments = await Comment.find({filmId: req.params.id});
@@ -43,7 +56,6 @@ router.post("/movies", async (req, res) => {
         date: req.body.date,
         artwork: req.body.artwork
     }
-
     try {
         const film = await Film.create(newFilm);
         console.log(film);

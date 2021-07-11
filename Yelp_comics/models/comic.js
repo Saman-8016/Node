@@ -13,6 +13,10 @@ const comicSchema = new mongoose.Schema({
     image: String
 });
 
+comicSchema.index({
+    '$**': 'text'
+});
+
 const Comic = mongoose.model("comic", comicSchema);
 
 module.exports = Comic;

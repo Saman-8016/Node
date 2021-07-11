@@ -45,6 +45,20 @@ router.get("/new", (req, res) => {
 	res.render("comics_new");
 })
 
+router.get("/search", async (req, res) => {
+	try {
+		const comics = await Comic.find({
+			$text: {
+				$search: req.query.term
+			}
+		})
+		res.render("comics", {comics})
+	} catch (err) {
+		console.log(err);
+		res.send("broke the search")
+	}
+})
+
 //Show
 router.get("/:id", async (req, res) => {
 	try {

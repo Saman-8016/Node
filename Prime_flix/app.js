@@ -40,7 +40,7 @@ seed()
 // ========================
 
 // Connect to DB
-mongoose.connect(config.db.connection, {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(config.db.connection, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true});
 
 // Express Config
 app.set("view engine", "ejs");

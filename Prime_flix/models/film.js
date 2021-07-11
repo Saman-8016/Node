@@ -10,6 +10,10 @@ const filmSchema = new mongoose.Schema({
     artwork: String
 });
 
+filmSchema.index({
+    '$**':"text"
+});
+
 const Film = mongoose.model("film", filmSchema);
 
 module.exports = Film;
