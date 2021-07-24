@@ -39,7 +39,7 @@ app.get("/", (req, res) => {
 })
 
 // ACCOUNT ROUTE
-app.get("/account", (req, res) => {
+app.get("/account", isLoggedIn, (req, res) => {
 
     res.render("account")
 })
@@ -56,7 +56,7 @@ app.post("/signup", async (req, res) => {
             {
                 username: req.body.username,
                 email: req.body.email
-                
+
             }
         )
             , req.body.password);
@@ -70,6 +70,30 @@ app.post("/signup", async (req, res) => {
     }
 })
 
+app.get("/login", (req, res) => {
+    res.render("login");
+})
+
+app.post("/login", passport.authenticate("local", {
+    successRedirect: "/account",
+    failureRedirect: "/login"
+}))
+
+app.get("/logout", (req, res) => {
+    req.logout();
+    res.redirect("/");
+})
+
+// Authorization Middleware
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+        // if yes continue
+        return next();
+    } else {
+        // if not, redirect to login page
+        res.redirect("/login")
+    }
+}
 
 port = 3000;
 app.listen(port, () => {
