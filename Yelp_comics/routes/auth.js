@@ -27,4 +27,22 @@ router.post("/signup", async (req, res) => {
     }
 })
 
+// Login - Show
+router.get("/login", (req, res) => {
+    res.render("login")
+})
+
+// Login
+router.post("/login", passport.authenticate('local', {
+    successRedirect: "/comics",
+    failureRedirect: "/login"
+}));
+
+// Log Out
+router.get("/logout", (req, res) => {
+    req.logout();
+    res.redirect("/comics");
+})
+
+
 module.exports = router;
