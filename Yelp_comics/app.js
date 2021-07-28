@@ -36,8 +36,8 @@ app.use(morgan('tiny'));
 
 
 // Seed the DB
-const seed = require("./utils/seed.js");
-seed();
+// const seed = require("./utils/seed.js");
+// seed();
 // =======================
 // CONFIG
 // =======================

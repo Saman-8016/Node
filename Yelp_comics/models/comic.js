@@ -10,7 +10,14 @@ const comicSchema = new mongoose.Schema({
     issue: Number,
     genre: String,
     color: Boolean,
-    image: String
+    image: String,
+    owner: {
+        id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
+        },
+        username: String
+    }
 });
 
 comicSchema.index({

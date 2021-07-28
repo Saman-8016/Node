@@ -49,17 +49,17 @@ const seed = async () => {
     await Comment.deleteMany();
     console.log("Deleted All teh Comments!")
     // create three new comics
-    for(const comic_seed of comic_seeds) {
-        let comic = await Comic.create(comic_seed)
-        console.log("Created a new comic", comic.title)
-        // create a new comment for each comic
-        await Comment.create({
-            text: "I ruved this romic rook",
-            user: "scooby_doo",
-            comicId: comic._id
-        })
-        console.log("created a new comment!")
-    }
+    // for(const comic_seed of comic_seeds) {
+    //     let comic = await Comic.create(comic_seed)
+    //     console.log("Created a new comic", comic.title)
+    //     // create a new comment for each comic
+    //     await Comment.create({
+    //         text: "I ruved this romic rook",
+    //         user: "scooby_doo",
+    //         comicId: comic._id
+    //     })
+    //     console.log("created a new comment!")
+    // }
 }
 
 module.exports = seed;

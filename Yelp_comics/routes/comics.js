@@ -5,6 +5,7 @@ const Comment = require("../models/comment");
 
 //Index
 router.get("/", async (req, res) => {
+	console.log(req.user);
 	try {
 		const comics = await Comic.find().exec()
 		res.render("comics", {comics})
@@ -15,7 +16,7 @@ router.get("/", async (req, res) => {
 	
 })
 //Create
-router.post("/", async (req, res) => {
+router.post("/", isLoggedIn, async (req, res) => {
 	const genre = req.body.genre.toLowerCase();
 	const newComic = {
 		title: req.body.title,
@@ -27,7 +28,11 @@ router.post("/", async (req, res) => {
 		issue: req.body.issue,
 		genre,
 		color: !!req.body.color,
-		image: req.body.image
+		image: req.body.image,
+		owner: {
+			id: req.user._id,
+			username: req.user.username
+		}
 	}
 
 	try {
@@ -41,7 +46,7 @@ router.post("/", async (req, res) => {
 });
 
 //New
-router.get("/new", (req, res) => {
+router.get("/new", isLoggedIn, (req, res) => {
 	res.render("comics_new");
 })
 
@@ -72,7 +77,7 @@ router.get("/:id", async (req, res) => {
 })
 
 //Edit
-router.get("/:id/edit", async (req, res) => {
+router.get("/:id/edit", isLoggedIn, async (req, res) => {
 	try {
 		const comic = await Comic.findById(req.params.id).exec();
 		res.render("comic_edit", {comic});
@@ -83,7 +88,7 @@ router.get("/:id/edit", async (req, res) => {
 })
 
 //Update
-router.put("/:id", async (req, res) => {
+router.put("/:id", isLoggedIn, async (req, res) => {
 	const genre = req.body.genre.toLowerCase();
 	const comicBody = {
 		title: req.body.title,
@@ -109,7 +114,7 @@ router.put("/:id", async (req, res) => {
 })
 
 //Delete
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", isLoggedIn, async (req, res) => {
 	try {
 		const comic = await Comic.findByIdAndDelete(req.params.id).exec();
 		res.redirect("/comics");
@@ -119,4 +124,11 @@ router.delete("/:id", async (req, res) => {
 	}
 })
 
+function isLoggedIn(req, res, next) {
+	if (req.isAuthenticated()) {
+		return next();
+	} else {
+		res.redirect("/login");
+	}
+}
 module.exports = router;
