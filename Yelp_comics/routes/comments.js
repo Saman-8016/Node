@@ -2,17 +2,22 @@ const express = require("express");
 const router = express.Router({mergeParams: true});
 const Comment = require("../models/comment");
 const Comic = require("../models/comic");
+const isLoggedIn = require("../utils/isLoggedIn");
+const checkCommentOwner = require("../utils/checkCommentOwner");
 
-router.get("/new", (req, res) => {
+router.get("/new", isLoggedIn, (req, res) => {
 	res.render("comments_new", {comicId: req.params.id})
 })
 
 
-router.post("/", async (req, res) => {
+router.post("/", isLoggedIn, async (req, res) => {
 	// create the comment
 	try {
 		const comment = await Comment.create({
-			user: req.body.user,
+			user: {
+				id: req.user._id,
+				username: req.user.username
+			},
 			text: req.body.text,
 			comicId: req.body.comicId
 		})
@@ -26,7 +31,8 @@ router.post("/", async (req, res) => {
 })
 
 // Edit Comment - show the comment form
-router.get("/:commentId/edit", async (req, res) => {
+router.get("/:commentId/edit", checkCommentOwner, async (req, res) => {
+	
 	try {
 		const comic = await Comic.findById(req.params.id).exec();
 		const comment = await Comment.findById(req.params.commentId).exec();
@@ -40,7 +46,7 @@ router.get("/:commentId/edit", async (req, res) => {
 
 })
 // update - actually update in the DB
-router.put("/:commentId", async (req, res) => {
+router.put("/:commentId", checkCommentOwner, async (req, res) => {
 	try {
 		const comment = await Comment.findByIdAndUpdate(req.params.commentId, {text: req.body.text}, {new: true});
 		console.log(comment);
@@ -52,7 +58,7 @@ router.put("/:commentId", async (req, res) => {
 
 })
 // Delete - delete the comment
-router.delete("/:commentId", async (req, res) => {
+router.delete("/:commentId", checkCommentOwner, async (req, res) => {
 	try {
 		const comment = await Comment.findByIdAndDelete(req.params.commentId);
 		console.log(comment);
@@ -62,4 +68,6 @@ router.delete("/:commentId", async (req, res) => {
 		res.send("Broken again .../comment DELETE")
 	}
 })
+
+
 module.exports = router;

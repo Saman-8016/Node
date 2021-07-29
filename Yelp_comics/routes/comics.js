@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const Comic = require('../models/comic');
 const Comment = require("../models/comment");
+const isLoggedIn = require("../utils/isLoggedIn");
+const checkComicOwner = require("../utils/checkComicOwner");
 
 //Index
 router.get("/", async (req, res) => {
@@ -77,18 +79,16 @@ router.get("/:id", async (req, res) => {
 })
 
 //Edit
-router.get("/:id/edit", isLoggedIn, async (req, res) => {
-	try {
+router.get("/:id/edit", checkComicOwner, async (req, res) => {
+	
+	
 		const comic = await Comic.findById(req.params.id).exec();
 		res.render("comic_edit", {comic});
-	} catch (err) {
-		console.log(err);
-		res.send("Broken... /comics/id/edit");
-	}
+	
 })
 
 //Update
-router.put("/:id", isLoggedIn, async (req, res) => {
+router.put("/:id", checkComicOwner, async (req, res) => {
 	const genre = req.body.genre.toLowerCase();
 	const comicBody = {
 		title: req.body.title,
@@ -114,9 +114,10 @@ router.put("/:id", isLoggedIn, async (req, res) => {
 })
 
 //Delete
-router.delete("/:id", isLoggedIn, async (req, res) => {
+router.delete("/:id", checkComicOwner, async (req, res) => {
 	try {
-		const comic = await Comic.findByIdAndDelete(req.params.id).exec();
+		const deletedComic = await Comic.findByIdAndDelete(req.params.id).exec();
+		console.log("Deleted:", deletedComic);
 		res.redirect("/comics");
 	} catch {
 		console.log(err);
@@ -124,11 +125,5 @@ router.delete("/:id", isLoggedIn, async (req, res) => {
 	}
 })
 
-function isLoggedIn(req, res, next) {
-	if (req.isAuthenticated()) {
-		return next();
-	} else {
-		res.redirect("/login");
-	}
-}
+
 module.exports = router;
