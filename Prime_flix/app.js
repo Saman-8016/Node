@@ -18,6 +18,7 @@ const mainRoute = require("./routes/main");
 const movieRoute = require("./routes/movies");
 const loginRoute = require("./routes/login");
 const commentRoute = require("./routes/comments");
+const signupRoute = require("./routes/signup");
 const errorRoute = require("./routes/error");
 
 //Model Imports
@@ -58,6 +59,7 @@ app.use(mainRoute);
 app.use(movieRoute);
 app.use(commentRoute);
 app.use(loginRoute);
+app.use(signupRoute);
 app.use(errorRoute);
 
 // ========================
