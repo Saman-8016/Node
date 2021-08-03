@@ -22,6 +22,7 @@ const commentRoutes = require('./routes/comments');
 const mainRoutes = require('./routes/main');
 const authRoutes = require("./routes/auth");
 
+
 // Model imports
 const Comic = require("./models/comic");
 const Comment = require("./models/comment");
