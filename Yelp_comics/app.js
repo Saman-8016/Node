@@ -14,7 +14,12 @@ const LocalStrategy = require("passport-local").Strategy;
 const expressSession = require("express-session");
 
 // Config Import
-const config = require("./config");
+try {
+    var config = require("./config");
+} catch(err) {
+    console.log("could not import config. this probabaly means you are not working locally");
+    console.log(err);
+}
 
 
 
@@ -45,7 +50,13 @@ app.use(morgan('tiny'));
 // CONFIG
 // =======================
 // Connect to DB
-mongoose.connect(config.db.connection, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true});
+try {
+    mongoose.connect(config.db.connection, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true});
+
+} catch(err) {
+    console.log("could not use config. this is probabaly mean that you are not running this locally")
+    mongoose.connect(process.env.DB_CONNECTION_STRING, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true})
+}
 
 // Body Parser Config
 app.use(express.urlencoded({extended: true}));
@@ -56,7 +67,7 @@ app.use(express.static("public"));
 
 // Express Session Config
 app.use(expressSession({
-    secret: "kajbcnwi;enfonasofmwamdkfpp,rf,asdocmsodmoasjfdviadv",
+    secret: process.env.ES_SECRET || config.expressSession.secret,
     resave: false,
     saveUninitialized: false
 
@@ -89,4 +100,4 @@ app.use("/comics/:id/comments", commentRoutes);
 // LISTEN
 // =======================
 let port = 12345;
-app.listen(port, () => console.log("yelp comic is running on localhost:"+port));
+app.listen(process.env.PORT || port, () => console.log("yelp comic is running on localhost:"+port));
