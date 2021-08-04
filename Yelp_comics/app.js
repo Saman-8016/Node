@@ -16,9 +16,9 @@ const expressSession = require("express-session");
 // Config Import
 try {
     var config = require("./config");
-} catch(err) {
+} catch(e) {
     console.log("could not import config. this probabaly means you are not working locally");
-    console.log(err);
+    console.log(e);
 }
 
 
