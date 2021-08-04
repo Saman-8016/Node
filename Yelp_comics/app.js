@@ -54,13 +54,12 @@ try {
     mongoose.connect(config.db.connection, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true});
 
 } catch(err) {
-    console.log("could not use config. this is probabaly mean that you are not running this locally")
-    mongoose.connect(process.env.DB_CONNECTION_STRING, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true})
+    console.log("could not use config. this is probabaly mean that you are not running this locally");
+    mongoose.connect(process.env.DB_CONNECTION_STRING, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true});
 }
 
 // Body Parser Config
 app.use(express.urlencoded({extended: true}));
-
 // Express Config
 app.set("view engine", "ejs");
 app.use(express.static("public"));
