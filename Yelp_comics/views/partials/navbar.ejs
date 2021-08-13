@@ -18,21 +18,22 @@
               Genres
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#">Superhero</a></li>
-              <li><a class="dropdown-item" href="#">Manga</a></li>
-              <li><a class="dropdown-item" href="#">Humor</a></li>
-              <li><a class="dropdown-item" href="#">Slice of Life</a></li>
-              <li><a class="dropdown-item" href="#">Sci-fi</a></li>
-              <li><a class="dropdown-item" href="#">Fantasy</a></li>
-              <li><a class="dropdown-item" href="#">Horror</a></li>
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Nonfiction</a></li>
+              <li><a class="dropdown-item" href="/comics/genre/superhero">Superhero</a></li>
+              <li><a class="dropdown-item" href="/comics/genre/manga">Manga</a></li>
+              <li><a class="dropdown-item" href="/comics/genre/humor">Humor</a></li>
+              <li><a class="dropdown-item" href="/comics/genre/slice-of-life">Slice of Life</a></li>
+              <li><a class="dropdown-item" href="/comics/genre/sci-fi">Sci-fi</a></li>
+              <li><a class="dropdown-item" href="/comics/genre/fantasy">Fantasy</a></li>
+              <li><a class="dropdown-item" href="/comics/genre/horror">Horror</a></li>
+              <li><a class="dropdown-item" href="/comics/genre/action">Action</a></li>
+              <li><a class="dropdown-item" href="/comics/genre/nonfiction">Nonfiction</a></li>
             </ul>
           </li>
-           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="/comics/new">Add Comic</a>
-          </li>
+           
           <% if(user) { %>
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="/comics/new">Add Comic</a>
+            </li>
             <li class="nav-item">
               <a class="nav-link" aria-current="page" href="/logout">Log Out</a>
             </li>
@@ -43,10 +44,7 @@
             <li class="nav-item">
               <a class="nav-link" aria-current="page" href="/signup">Sign Up</a>
             </li>
-          <% } %>
-          
-         
-
+          <% } %>        
         </ul>
         <form class="d-flex" action="/comics/search" method="GET">
           <input class="form-control me-2" type="search" placeholder="Search" name='term' aria-label="Search">
@@ -55,3 +53,17 @@
       </div>
     </div>
   </nav>
+<div class="container mt-2">
+  <% if (successMessage && successMessage.length > 0) { %>
+    <div class="alert alert-success fade show" role="alert">
+      <%= successMessage %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% } %>
+  <% if (errorMessage && errorMessage.length > 0) { %>
+    <div class="alert alert-danger fade show" role="alert">
+      <%= errorMessage %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% } %>
+</div>

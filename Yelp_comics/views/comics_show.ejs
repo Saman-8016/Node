@@ -39,12 +39,14 @@
                     </tr>
                 </tbody>
             </table>
-            <a href="/comics/<%= comic._id %>/edit">
-                <button class="btn btn-outline-info btn-lg col-12 mb-2">EDIT</button>
-            </a>
-            <form action="/comics/<%= comic._id %>?_method=DELETE" method="POST">
-                <button type="submit" class="btn btn-outline-danger btn-lg col-12">DELETE</button>
-            </form>
+            <% if (user && user.username === comic.owner.username) { %>
+                <a href="/comics/<%= comic._id %>/edit">
+                    <button class="btn btn-outline-info btn-lg col-12 mb-2">EDIT</button>
+                </a>
+                <form action="/comics/<%= comic._id %>?_method=DELETE" method="POST">
+                    <button type="submit" class="btn btn-outline-danger btn-lg col-12">DELETE</button>
+                </form>
+            <% } %>
         </div>
     </div>
     <div class="row show_comment-header mt-3">
@@ -60,10 +62,12 @@
                 <%= comment.user.username %>
             </div>
             <div class="col-2 border-end my-auto d-flex flex-wrap justify-content-center">
+                <% if (user && user.username === comment.user.username) { %>
                 <a class="btn btn-success btn-sm w-75 p-0 my-1" href="/comics/<%= comic._id %>/comments/<%= comment._id %>/edit">Edit</a>
                 <form class="w-75 my-1" action="/comics/<%= comic._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
                     <button class="btn btn-danger btn-sm w-100 p-0">Delete</button>
                 </form>
+                <% } %>
             </div>
             <div class="col-8 my-auto">
                 <%= comment.text %>

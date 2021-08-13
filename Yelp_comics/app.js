@@ -6,6 +6,7 @@
 const bodyParser = require("body-parser");
 const express = require("express");
 const app = express();
+const flash = require("connect-flash");
 const mongoose = require('mongoose');
 const methodOverride = require("method-override")
 const morgan = require("morgan");
@@ -76,6 +77,9 @@ app.use(expressSession({
 // Method Override Config
 app.use(methodOverride('_method'));
 
+// Connect-Flash
+app.use(flash());
+
 // Passport Config
 app.use(passport.initialize());
 app.use(passport.session()); // allow persistent session
@@ -83,9 +87,11 @@ passport.serializeUser(User.serializeUser()); // what data should be stored in s
 passport.deserializeUser(User.deserializeUser()); // get the user data from the stored session
 passport.use(new LocalStrategy(User.authenticate())); // use the local strategy
 
-// Current User Middleware Config
+// State Config
 app.use((req, res, next) => {
     res.locals.user = req.user;
+    res.locals.errorMessage = req.flash("error");
+    res.locals.successMessage = req.flash("success");
     next();
 })
 
