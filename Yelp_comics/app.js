@@ -9,7 +9,7 @@ const app = express();
 const flash = require("connect-flash");
 const mongoose = require('mongoose');
 const methodOverride = require("method-override")
-const morgan = require("morgan");
+// const morgan = require("morgan");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const expressSession = require("express-session");
@@ -41,7 +41,7 @@ const User = require("./models/user");
 // DEVELOPMENTS
 // =======================
 // Morgan
-app.use(morgan('tiny'));
+// app.use(morgan('tiny'));
 
 
 // Seed the DB
@@ -64,6 +64,9 @@ app.use(express.urlencoded({extended: true}));
 // Express Config
 app.set("view engine", "ejs");
 app.use(express.static("public"));
+app.use(express.json({
+    type: ["application/json", "text/plain"]
+}))
 
 // Express Session Config
 app.use(expressSession({
