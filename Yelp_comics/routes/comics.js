@@ -79,10 +79,19 @@ router.get("/genre/:genre", async (req, res) => {
 	}
 })
 
-router.post("/vote", isLoggedIn, (req, res) => {
-	res.json({
-		message: "Voted!"
-	})
+// Vote
+router.post("/vote", isLoggedIn, async (req, res) => {
+	console.log("request Body:", req.body);
+
+	// { 
+	// 	comicId: "abc123",
+	// 	voteType: "up" or "down"
+	// }
+
+	const comic = await Comic.findById(req.body.comicId)
+	console.log(comic);
+
+	res.json(comic);
 })
 
 //Show
