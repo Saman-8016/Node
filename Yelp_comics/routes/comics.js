@@ -89,9 +89,57 @@ router.post("/vote", isLoggedIn, async (req, res) => {
 	// }
 
 	const comic = await Comic.findById(req.body.comicId)
-	console.log(comic);
+	const alreadyUpvoted = comic.upvotes.indexOf(req.user.username) // will be -1 if not found
+	const alreadyDownvoted = comic.downvotes.indexOf(req.user.username) // will be -1 if not found
 
-	res.json(comic);
+	let response = {}
+	// Voting Logic
+	if (alreadyUpvoted === -1 && alreadyDownvoted === -1) { // has not voted
+		if (req.body.voteType === "up") { // upvoting
+			comic.upvotes.push(req.user.username);
+			comic.save()
+			response = {message: "Upvote tallied!", code: 1};
+		} else if (req.body.voteType === "down") { // downvotting
+			comic.downvotes.push(req.user.username);
+			comic.save()
+			response = {message: "Downvote tallied!", code: -1};
+		} else { // Error
+			response = {message: "Error 1", code: "err"}
+		}
+	} else if (alreadyUpvoted >= 0) { // already upvoted
+		if (req.body.voteType === "up") {
+			comic.upvotes.splice(alreadyUpvoted, 1);
+			comic.save()
+			response = {message: "upvote removed!", code: 0};
+		} else if (req.body.voteType == "down") {
+			comic.upvotes.splice(alreadyUpvoted, 1);
+			comic.downvotes.push(req.user.username)
+			comic.save()
+			response = {message: "changed to downvote!", code: -1};
+		} else { // error 
+			response = {message: "Error 2", code: "err"}
+		}
+	} else if (alreadyDownvoted >= 0) { // already downvoted
+		if (req.body.voteType === "up") {
+			comic.downvotes.splice(alreadyDownvoted, 1);
+			comic.upvotes.push(req.user.username);
+			comic.save()
+			response = {message: "changed to upvotes!", code: 1};
+		} else if (req.body.voteType === "down") {
+			comic.downvotes.splice(alreadyDownvoted, 1);
+			comic.save()
+			response= {message: "removed downvotes!", code: 0};
+		} else { // error
+			response= {message: "Error 3", code: "err"};
+		}
+	} else { // Error
+		response= {message: "Error 4", code: "err"}
+	}
+
+	// update score immediately prior to sending
+	response.score = comic.upvotes.length - comic.downvotes.length;
+	
+	res.json(response);
 })
 
 //Show
