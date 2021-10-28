@@ -1,0 +1,36 @@
+body {
+    margin: 0;
+}
+
+.page-title {
+    margin: 1.5rem 0 1rem 0;
+}
+
+.card {
+    border: 1px solid #ddd;
+    border-radius: 1rem;
+    width: 30%;
+    margin-bottom: 5px;
+}
+
+.card-image {
+    width: 100%;
+    height: 20rem;
+    object-fit: cover;
+    border-radius: 1rem 1rem 0 0;
+}
+
+.card-name {
+    text-align: center;
+    font-weight: 400;
+    font-size: 1.8rem;
+}
+
+.card-duration {
+    text-align: center;
+    line-height: 1.4;
+}
+
+.card-origin {
+    text-align: center;
+}
